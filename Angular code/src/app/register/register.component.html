@@ -1,0 +1,41 @@
+<div class="container d-flex justify-content-center mt-5">
+    <div  class="row">
+        <div class="card text-center mx-auto p-2 m-2">
+            <!---Header-->
+            <div class="card-header text-white bg-primary">
+                Register
+            </div>
+        
+            <!--Body-->
+            <div class="card-body form-group row">
+                <label for="txtuname" class="col-sm-4">User Name</label>
+                <div class="col-sm-8">
+                    <input type="text" [(ngModel)]="user.userName"  id="txtuname" placeholder="Enter UserName" class="form-control" />
+                </div>
+            </div>
+        
+            <div class="card-body form-group row">
+                <label for="txtpass" class="col-sm-4">Password</label>
+                <div class="col-sm-8">
+                    <input type="password" [(ngModel)]="user.password" id="txtpass" placeholder="Enter Password" class="form-control" />
+                </div>
+            </div>
+        
+            <div class="card-body form-group row">
+                <label for="txtpass1" class="col-sm-4">Confirm Password</label>
+                <div class="col-sm-8">
+                    <input type="password" [(ngModel)]="user.confirmPassword" id="txtpass1" placeholder="Enter Password" class="form-control" />
+                </div>
+            </div>
+
+            <!---Footer-->
+            <div class="card-footer text-muted">
+                <button class="btn btn-success" (click)="getRegister()">Register</button>
+            </div>
+
+            <p class="text-danger" *ngFor="let message of registrationErrors">{{message}}</p>
+
+        </div>
+        </div>
+</div>
+

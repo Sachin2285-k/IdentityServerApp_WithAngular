@@ -13,6 +13,8 @@ internal static class HostingExtensions
     {
         builder.Services.AddRazorPages();
 
+        builder.Services.AddControllers();
+
 
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -50,18 +52,16 @@ internal static class HostingExtensions
                 options.ClientSecret = "copy client secret from Google here";
             });
 
-       /* builder.Services.AddCors(options => 
+        builder.Services.AddCors(options =>
                 {
                     options.AddPolicy("AllowAngularOrigins",
                     builder =>
                     {
-                        builder.WithOrigins(
-                                            "http://localhost:4200"
-                                            )
-                                            .AllowAnyHeader()
-                                            .AllowAnyMethod();
+                        builder.WithOrigins("http://localhost:4200")
+                               .AllowAnyHeader()
+                               .AllowAnyMethod();
                     });
-                });*/
+                });
 
 
         return builder.Build();
@@ -77,8 +77,8 @@ internal static class HostingExtensions
             app.UseDeveloperExceptionPage();
         }
 
-        /*app.UseCors("AllowAngularOrigins");
-*/
+        app.UseCors("AllowAngularOrigins");
+
         app.UseStaticFiles();
         app.UseRouting();
         app.UseIdentityServer();
@@ -86,6 +86,8 @@ internal static class HostingExtensions
         
         app.MapRazorPages()
             .RequireAuthorization();
+
+        app.MapControllers();
 
         return app;
     }

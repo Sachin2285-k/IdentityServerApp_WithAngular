@@ -4,6 +4,7 @@ import { EmployeeComponent } from './employee/employee.component';
 import { authGuard } from './auth/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { RegisterComponent } from './register/register.component';
 
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'employee', component: EmployeeComponent, canActivate: [authGuard]},
   { path: 'home', component: HomeComponent},
   { path: 'about', component: AboutComponent},
+  { path: 'register', component: RegisterComponent},
 ];
 
 @NgModule({
