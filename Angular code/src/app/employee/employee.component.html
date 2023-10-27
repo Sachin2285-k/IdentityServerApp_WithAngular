@@ -49,25 +49,25 @@
             <!--Body-->
             <div class="modal-body">
                 <div class="form-group row">
-                    <label for="txtname" class="col-sm-4 col-form-label">Name</label>
+                    <label for="txtnamenew" class="col-sm-4 col-form-label">Name</label>
                     <div class="col-sm-8">
-                        <input id="txtname" [(ngModel)]="newEmployee.name" type="text" name="name" placeholder="Enter Name" class="form-control" /> <!--Two way binding used in ngModel
+                        <input id="txtnamenew" [(ngModel)]="newEmployee.name" type="text" name="name" placeholder="Enter Name" class="form-control" /> <!--Two way binding used in ngModel
                         by using two brackets [()] and added FromsModule in imports of app.module.ts-->
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="txtemail" class="col-sm-4 col-form-label">Email</label>
+                    <label for="txtemailnew" class="col-sm-4 col-form-label">Email</label>
                     <div class="col-sm-8">
-                        <input type="text" [(ngModel)]="newEmployee.email" id="txtemail" name="email" placeholder="Enter Email"
+                        <input type="text" [(ngModel)]="newEmployee.email" id="txtemailnew" name="email" placeholder="Enter Email"
                             class="form-control" />
                     </div>
                 </div>
 
                 <div class="form-group row">   
-                    <label for="txtaddress" class="col-sm-4 col-form-label">Address</label>
+                    <label for="txtaddressnew" class="col-sm-4 col-form-label">Address</label>
                     <div class="col-sm-8">
-                        <input type="text" [(ngModel)]="newEmployee.address" id="txtaddress" name="address" placeholder="Enter Address"
+                        <input type="text" [(ngModel)]="newEmployee.address" id="txtaddressnew" name="address" placeholder="Enter Address"
                             class="form-control" />
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                 <div class="form-group row">
                     <label for="txtemail" class="col-sm-4 col-form-label">Email</label>
                     <div class="col-sm-8">
-                        <input type="text" [(ngModel)]="editEmployee.email" id="txtEmail" name="email" placeholder="Enter Email"
+                        <input type="text" [(ngModel)]="editEmployee.email" id="txtemail" name="email" placeholder="Enter Email"
                             class="form-control" />
                     </div>
                 </div>

@@ -29,7 +29,7 @@ import { RegisterComponent } from './register/register.component';
         redirectUrl: 'http://localhost:4200/signin-oidc',
         postLogoutRedirectUri: 'http://localhost:4200/signout-callback-oidc',
         clientId: 'web',
-        scope: 'openid profile api1',
+        scope: 'openid profile api1 offline_access',
         responseType: 'code',
         silentRenew: true,
         useRefreshToken: true,
