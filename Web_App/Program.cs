@@ -1,11 +1,14 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Web_App;
 using Web_App.Data;
 using Web_App.GraphQL;
 using Web_App.Repositories;
 using Web_App.Repositories.Interfaces;
+using Web_App.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +18,12 @@ string cs = builder.Configuration.GetConnectionString("conStr");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(cs));
 
+builder.Services.AddFluentValidation();
+builder.Services.AddTransient<FormInputValidator>();
+
 builder.Services.AddGraphQLServer()
     .AddQueryType<Query>()
+    .AddErrorFilter<GraphQLErrorFilter>()
     .AddAuthorization(options =>
     {
         options.AddPolicy("ApiScope", policy =>
@@ -26,6 +33,7 @@ builder.Services.AddGraphQLServer()
         });
     })
     .AddMutationType<Mutation>();
+
 
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

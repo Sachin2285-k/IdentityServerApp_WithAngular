@@ -9,7 +9,8 @@ namespace Web_App.GraphQL
     {
         public Task<Employee> CreateEmployee([Service] IEmployeeRepository employeeRepository, Employee employee)
         {
-            return employeeRepository.CreateEmployee(employee);
+            var result = employeeRepository.CreateEmployee(employee);
+            return result;
         }
         public Task<Employee> UpdateEmployee([Service] IEmployeeRepository employeeRepository, Employee employee)
         {
