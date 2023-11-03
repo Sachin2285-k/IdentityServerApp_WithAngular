@@ -1,6 +1,7 @@
 import { AboutComponent } from './about/about.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AbstractSecurityStorage, AuthModule, DefaultLocalStorageService, LogLevel } from 'angular-auth-oidc-client';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,9 +10,10 @@ import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { EmployeeComponent } from './employee/employee.component';
 import { FormsModule } from '@angular/forms';
-import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
+import { ToastrModule } from 'ngx-toastr';
+import { SigninOidcComponent } from './signin-oidc/signin-oidc.component';
 
 @NgModule({
   declarations: [
@@ -20,9 +22,11 @@ import { RegisterComponent } from './register/register.component';
     HomeComponent,
     AboutComponent,
     RegisterComponent
+    // SigninOidcComponent
   ],
   
   imports: [
+    BrowserAnimationsModule,
     AuthModule.forRoot({
       config: {
         authority: 'https://localhost:5001',
@@ -36,18 +40,17 @@ import { RegisterComponent } from './register/register.component';
         logLevel: LogLevel.Debug,
       },
     }),
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+      timeOut: 3500,
+      easing: 'ease-in',
+      easeTime: 1700
+    }),
     BrowserModule,
     AppRoutingModule,
     GraphQLModule,
     HttpClientModule,
     FormsModule,
-    // JwtModule.forRoot({
-    //   config: {
-    //     tokenGetter: () => {
-    //       return sessionStorage.getItem("currentUser") ? JSON.parse(sessionStorage.getItem('currentUser') as string).token : null;
-    //     }
-    //   }
-    // })
   ],
   providers: [{
     provide: AbstractSecurityStorage,

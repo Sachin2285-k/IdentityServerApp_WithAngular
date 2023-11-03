@@ -58,8 +58,14 @@ namespace Web_App.Repositories
         }
         public async Task<Employee> UpdateEmployee(Employee employee)
         {
-            try
-            {
+                var validationResult = _formInputValidator.Validate(employee);
+
+                if (!validationResult.IsValid)
+                {
+                    var exceptionList = validationResult.Errors.Select(error => new Exception(error.ErrorMessage));
+                    throw new AggregateException(exceptionList);
+                }
+
                 var recordInDb = _context.Employees.Find(employee.Id);
 
 
@@ -73,11 +79,7 @@ namespace Web_App.Repositories
                 _context.Employees.Update(recordInDb);
                 await _context.SaveChangesAsync();
                 return employee;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("An error occurred while updating the Employee: "+ ex);
-            }
+           
         } 
         public async Task<string> DeleteEmployee(int id)
         {
@@ -88,7 +90,7 @@ namespace Web_App.Repositories
 
             _context.Employees.Remove(employee);
             await _context.SaveChangesAsync();
-            return $"Data with Id:{id} Deleted successfully!";
+            return $"Data with Id:{id} deleted successfully!";
         }
     }
 }

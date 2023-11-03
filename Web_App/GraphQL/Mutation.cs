@@ -21,7 +21,7 @@ namespace Web_App.GraphQL
             return employeeRepository.DeleteEmployee(id);
         }
 
-        // User Register
+        /*// User Register
         public User GetRegistered([Service] IUserRepository userRepository, UserInput userin)
         {
             var user = userRepository.UniqueUser(userin.UserName);
@@ -31,6 +31,6 @@ namespace Web_App.GraphQL
             }
              
             return userRepository.Register(userin.UserName, userin.Password);
-        }
+        }*/
     }
 }
