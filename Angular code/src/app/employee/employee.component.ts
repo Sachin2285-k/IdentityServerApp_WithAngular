@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Apollo } from 'apollo-angular';
-import { AppComponent } from '../app.component';
-import { query } from '@angular/animations';
-import EmployeeQueries from '../graphql/graphql.queries';
-import EmployeeMutations from '../graphql/graphql.mutation';
-import { Employee } from '../employee';
-import { EmployeeService } from '../employee.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Employee } from '../models/employee';
+import { EmployeeService } from '../services/employee.service';
+import { ApolloErrorOptions } from '@apollo/client/errors';
+import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-employee',
@@ -13,12 +11,19 @@ import { EmployeeService } from '../employee.service';
   styleUrls: ['./employee.component.css'],
 })
 export class EmployeeComponent implements OnInit {
-  employeeList: Employee[] = []; // Array declaration in Angular
+  employeeList: Employee[] = [];
   newEmployee: Employee = new Employee();
   editEmployee: Employee = new Employee();
-  error: any;
+  error: any = '';
+  errorMessages: string[] = [];
 
-  constructor(private employeeService: EmployeeService) {}
+  @ViewChild('closeButtonSave', { static: false }) closeButtonSave?: ElementRef;
+  @ViewChild('closeButtonUpdate', { static: false }) closeButtonUpdate?: ElementRef;
+
+  constructor(
+    private employeeService: EmployeeService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.getAll();
@@ -34,16 +39,17 @@ export class EmployeeComponent implements OnInit {
   }
 
   getAll() {
-    this.employeeService.getAllEmployee().valueChanges.subscribe(
-      ({ data }: any) => {
-        this.employeeList = data.allEmployees;
+    this.employeeService.getAllEmployee().valueChanges.subscribe({
+      next: (data: any) => {
+        this.employeeList = data.data.allEmployees;
+        // console.log(this.employeeList);
       },
-      ({ error }: any) => {
-        this.error = error;
-      }
-    );
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
   }
-
+  
   // getById(id: number) {
   //   this.apollo
   //     .watchQuery({
@@ -59,17 +65,28 @@ export class EmployeeComponent implements OnInit {
   // }
 
   createEmployee() {
-    this.employeeService.createNewEmployee(this.newEmployee).subscribe(
-      (data: any) => {
-        // this.getAll();
+    // console.log('closeButtonSave', this.closeButtonSave);
+
+    this.employeeService.createNewEmployee(this.newEmployee).subscribe({
+      next: (data: any) => {
         this.resetForm();
-        // this.employeeList = data.allEmployees
+        this.closeButtonSave?.nativeElement.click();
+        this.toastr.success('Data saved successfully!!');
+        // console.log(data);
       },
-      (error: any) => {
-        this.error = error;
-        console.log(this.error);
-      }
-    );
+      error: (error: ApolloErrorOptions) => {
+        this.errorMessages = [];
+
+        const errorArray = (error.networkError as any).error.errors;
+        this.errorMessages = errorArray.map(
+          (errorItem: any) => errorItem.message
+        );
+        // console.log(this.errorMessages);
+        this.errorMessages.forEach((element) => {
+            this.toastr.error(element);
+        });
+      },
+    });
   }
 
   EditClick(emp: Employee) {
@@ -78,30 +95,51 @@ export class EmployeeComponent implements OnInit {
     this.editEmployee.address = emp.address;
     this.editEmployee.email = emp.email;
 
-    console.log(this.editEmployee);
+    // console.log(this.editEmployee);
   }
 
-  updateEmployee() {
-    this.employeeService.updateOldEmployee(this.editEmployee).subscribe(
-      ({ data }: any) => {
+  async updateEmployee() {
+    // console.log('closeButtonUpdate', this.closeButtonUpdate);
+   await this.employeeService.updateOldEmployee(this.editEmployee).subscribe({
+      next: (data: any) => {
         // this.getAll();
+        this.closeButtonUpdate?.nativeElement.click();
+        this.toastr.success('Data updated successfully!');
       },
-      (e) => {
-        this.error = e;
-        console.log(this.error);
-      }
-    );
+      error: (error: ApolloErrorOptions) => {
+        this.errorMessages = [];
+
+        const errorArray = (error.networkError as any).error.errors;
+        this.errorMessages = errorArray.map(
+          (errorItem: any) => errorItem.message
+        );
+
+        this.errorMessages.forEach((element) => {        
+            this.toastr.error(element);        
+        });
+      },
+    });
   }
 
   deleteEmployee(id: number) {
-    this.employeeService.deleteEmployee(id).subscribe(
-      ({ data }: any) => {
-        console.log(data.result);
-      },
-      (e) => {
-        this.error = e;
-        console.log(this.error);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This process is irreversible',
+      icon: 'warning',
+      showCancelButton: true,
+    }).then((willDelete) => {
+      if (willDelete.value) {
+        this.employeeService.deleteEmployee(id).subscribe({
+          next: ({ data }: any) => {
+            console.log(data);
+            this.toastr.success(data.deleteEmployee);
+          },
+          error: (e) => {
+            this.error = e;
+            console.log(this.error);
+          },
+        });
       }
-    );
+    });
   }
 }

@@ -19,10 +19,10 @@ namespace Web_App.GraphQL
             return employeeRepository.GetEmployeeById(id);
         }
 
-        // User Authentication
+        /*// User Authentication
         public User GetAuthenticated([Service] IUserRepository userRepository, UserInput userInput)
         {
             return userRepository.Authenticate(userInput.UserName, userInput.Password);
-        }
+        }*/
     }
 }

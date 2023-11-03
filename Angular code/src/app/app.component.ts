@@ -13,15 +13,20 @@ export class AppComponent implements OnInit {
 
   constructor(public oidcSecurityService: OidcSecurityService) {}
 
-  ngOnInit(): void {
-    this.oidcSecurityService
-      .checkAuth()
-      .subscribe((loginResponse: LoginResponse) => {
-        const { isAuthenticated, userData, accessToken, idToken, configId } = loginResponse;
-        // console.log(loginResponse);
-        this.isAuthenticated = loginResponse.isAuthenticated;
-        localStorage.setItem('currentUser', accessToken);
-      });
+  async ngOnInit(): Promise<void> {
+    try {
+      this.oidcSecurityService
+        .checkAuth()
+        .subscribe((loginResponse: LoginResponse) => {
+          const { isAuthenticated, userData, accessToken, idToken, configId } =
+            loginResponse;
+          // console.log(loginResponse);
+          this.isAuthenticated = loginResponse.isAuthenticated;
+          localStorage.setItem('currentUser', accessToken);
+        });
+    } catch (error) {
+      console.log('Got error:', error);
+    }
   }
 
   login() {

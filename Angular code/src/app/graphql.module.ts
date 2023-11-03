@@ -9,7 +9,7 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
 
   const auth = setContext(() => {
     const token = localStorage.getItem('currentUser');
-    console.log('Token:', token);
+    // console.log('Token:', token);
 
     if (token === null) {
       return {};

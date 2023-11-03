@@ -28,15 +28,6 @@ class EmployeeMutations {
       deleteEmployee(id: $id)
     }
   `;
-
-  static getRegistered = gql`
-    mutation ($input: UserInput!) {
-      registered(userin: $input) {
-        userName
-        password
-      }
-    }
-  `;
 }
 
 export default EmployeeMutations;

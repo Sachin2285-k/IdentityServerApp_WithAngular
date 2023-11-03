@@ -3689,11 +3689,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\N\\quickstart\\src\\IdentityServerAspNetIdentity\\IdentityServerAspNetIdentity.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\New folder (2)\\IdentityServerApp_WithAngular\\IdentityServerAspNetIdentity\\IdentityServerAspNetIdentity.csproj",
       "projectName": "IdentityServerAspNetIdentity",
-      "projectPath": "C:\\Users\\Administrator\\Desktop\\N\\quickstart\\src\\IdentityServerAspNetIdentity\\IdentityServerAspNetIdentity.csproj",
+      "projectPath": "C:\\Users\\Administrator\\Desktop\\New folder (2)\\IdentityServerApp_WithAngular\\IdentityServerAspNetIdentity\\IdentityServerAspNetIdentity.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\Desktop\\N\\quickstart\\src\\IdentityServerAspNetIdentity\\obj\\",
+      "outputPath": "C:\\Users\\Administrator\\Desktop\\New folder (2)\\IdentityServerApp_WithAngular\\IdentityServerAspNetIdentity\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

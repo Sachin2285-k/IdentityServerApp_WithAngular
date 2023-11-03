@@ -1,6 +1,6 @@
 import { gql } from 'apollo-angular';
-import { Employee } from '../employee';
-import { User } from '../user';
+import { Employee } from '../models/employee';
+import { User } from '../models/user';
 
 class EmployeeQueries {
   static getAllEmployees = gql`
@@ -19,17 +19,6 @@ class EmployeeQueries {
       employeeById(id: $id) {
         id
         name
-      }
-    }
-  `;
-  
-  static getAuthenticated = gql`
-    query ($input: UserInput!) {
-      authenticated(userInput: $input) {
-        id
-        userName
-        password
-        token
       }
     }
   `;
