@@ -5,8 +5,6 @@ import { authGuard } from './auth/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { RegisterComponent } from './register/register.component';
-import { SigninOidcComponent } from './signin-oidc/signin-oidc.component';
-
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -14,7 +12,6 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'about', component: AboutComponent},
   { path: 'register', component: RegisterComponent},
-  // { path: 'signin-oidc', component: SigninOidcComponent},
 ];
 
 @NgModule({

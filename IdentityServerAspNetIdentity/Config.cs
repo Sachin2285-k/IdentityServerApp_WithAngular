@@ -55,11 +55,8 @@ public static class Config
 
                     RequireClientSecret = false,
 
-                    RedirectUris = { "http://localhost:4200/signin-oidc" },
-                    FrontChannelLogoutUri = "http://localhost:4200/signout-oidc",
-
-                    PostLogoutRedirectUris = { "http://localhost:4200/signout-callback-oidc" },
-
+                    RedirectUris = { "http://localhost:4200/home" },
+                    PostLogoutRedirectUris = { "http://localhost:4200/home" },
                     AllowOfflineAccess = true,
                     AllowedCorsOrigins = {"http://localhost:4200" },
 

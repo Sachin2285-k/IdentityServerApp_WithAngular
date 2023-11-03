@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ToastrModule } from 'ngx-toastr';
-import { SigninOidcComponent } from './signin-oidc/signin-oidc.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +29,8 @@ import { SigninOidcComponent } from './signin-oidc/signin-oidc.component';
     AuthModule.forRoot({
       config: {
         authority: 'https://localhost:5001',
-        redirectUrl: 'http://localhost:4200/signin-oidc',
-        postLogoutRedirectUri: 'http://localhost:4200/signout-callback-oidc',
+        redirectUrl: 'http://localhost:4200/home',
+        postLogoutRedirectUri: 'http://localhost:4200/home',
         clientId: 'web',
         scope: 'openid profile api1 offline_access',
         responseType: 'code',
